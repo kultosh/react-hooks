@@ -1,27 +1,25 @@
 import React, {useState} from 'react';
 
 function App() {
-  const [counter, setCounter] = useState(0);
-
-  let Increase
-  let Decrease
-
-  if(counter >= 0)
-  {
-     Increase = () => {
-      setCounter( counter + 1)
-    }
+  const [state, setState] = useState({count: 0, theme: 'blue'});
+  const counter = state.count
+  const theme = state.theme
   
-     Decrease = () => {
-      setCounter( counter - 1)
-    }
+  const Increase = () => {
+    setState(prevState => {
+      return {
+        ...prevState, count: prevState.count + 1, theme: 'blue'
+      }
+    })
   }
 
-  else
-  {
-    setCounter(0);
+  const Decrease = () => {
+    setState(prevState => {
+      return {
+        ...prevState, count: prevState.count - 1, theme: 'red'
+      }
+    })
   }
-
 
   return (
     <div>
@@ -29,6 +27,7 @@ function App() {
       <div>
         <button onClick={Increase}>+</button>
         <span>{counter}</span>
+        <span>{theme}</span>
         <button onClick={Decrease}>-</button>
       </div>
     </div>
