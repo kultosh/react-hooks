@@ -1,24 +1,18 @@
 import React, {useState} from 'react';
 
 function App() {
-  const [state, setState] = useState({count: 0, theme: 'blue'});
-  const counter = state.count
-  const theme = state.theme
+  const [count, setCount] = useState(0)
+  const [theme, setTheme] = useState('blue')
   
   const Increase = () => {
-    setState(prevState => {
-      return {
-        ...prevState, count: prevState.count + 1, theme: 'blue'
-      }
-    })
+    // Note: You can use any variable inplace of prevCount. It is just the variable that denotes the previous state
+    setCount(prevCount => prevCount + 1)
+    setTheme('blue')
   }
 
   const Decrease = () => {
-    setState(prevState => {
-      return {
-        ...prevState, count: prevState.count - 1, theme: 'red'
-      }
-    })
+    setCount(prevCount => prevCount - 1)
+    setTheme('red')
   }
 
   return (
@@ -26,7 +20,7 @@ function App() {
       <h1>React Hooks & Context</h1>
       <div>
         <button onClick={Increase}>+</button>
-        <span>{counter}</span>
+        <span>{count}</span>
         <span>{theme}</span>
         <button onClick={Decrease}>-</button>
       </div>
