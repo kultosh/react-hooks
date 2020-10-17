@@ -1,42 +1,25 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import './App.css'
 
 function App() {
-  const [number, setNumber] = useState(0)
+  const [name, setName] = useState('null');
 
-  const [dark, setDark] = useState(false);
-
-  const doubleNumber = useMemo(() => {
-    return slowFunction(number)
-  }, [number])
-
-  const themeStyles = useMemo(() => {
-    return {
-      backgroundColor : dark ? 'black' : 'white',
-      color: dark ? 'white' : 'black'
-    }
-  }, [dark])
+  const renderCount = useRef(0);
 
   useEffect(() => {
-    console.log('Theme Changed');
-  }, [themeStyles])
+    renderCount.current = renderCount.current + 1
+  })
 
   return (
     <div className="App">
-      <h1>UseMemo Hooks</h1>
+      <h2>useRef Hook</h2>
       <div>
-        <input type="number" value={number} onChange={(e) => setNumber(parseInt(e.target.value))} />
-        <br />
-        <button onClick={() => setDark(prevDark => !prevDark)}>Change Theme</button>
-        <span style={themeStyles}> {doubleNumber} </span>
+        <input type="text" onChange={(e) => setName(e.target.value)} />
       </div>
-      
+      <p>My name is {name} </p>
+      <p>I rendered {renderCount.current}</p>
     </div>
-  );
-
-  function slowFunction (num) {
-      return num * 2;
-    }
+  )
 
 }
 
