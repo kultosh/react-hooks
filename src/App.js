@@ -4,21 +4,18 @@ import './App.css'
 function App() {
   const [name, setName] = useState('');
 
-  const inputRef = useRef();
-
-  function focus() {
-    inputRef.current.focus();
-  }
+  const prevName = useRef('');
+  useEffect(() => {
+    prevName.current = name;
+  }, [name])
 
   return (
     <div className="App">
       <h2>useRef Hook</h2>
       <div>
-        <input ref={inputRef} type="text" onChange={(e) => setName(e.target.value)} />
+        <input type="text" onChange={(e) => setName(e.target.value)} />
       </div>
-      <p>My name is {name} </p>
-    
-      <button onClick={focus}>Focus</button>
+      <p>My name is {name} and it used to be {prevName.current} </p>
     </div>
   )
 
