@@ -1,30 +1,35 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useMemo} from 'react';
+import './App.css'
 
 function App() {
-  const [resourceType, setResourceType] = useState('posts')
-  const [items, setItems] = useState([])
+  const [number, setNumber] = useState(0)
 
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
-    .then(response => response.json())
-    .then(json => setItems(json))
-  }, [resourceType])
+  const [dark, setDark] = useState(false);
+
+  const themeStyles = {
+    backgroundColor : dark ? 'black' : 'white',
+    color: dark ? 'white' : 'black'
+  }
+
+  const doubleNumber = slowFunction(number);
 
   return (
-    <div>
-      <h1>React Hooks & Context</h1>
+    <div className="App">
+      <h1>UseMemo Hooks</h1>
       <div>
-        <button onClick={() => setResourceType('posts')}>Posts</button>
-        <button onClick={() => setResourceType('users')}>Users</button>
-        <button onClick={() => setResourceType('comments')}>Comments</button>
+        <input type="number" value={number} onChange={(e) => setNumber(parseInt(e.target.value))} />
+        <br />
+        <button onClick={() => setDark(prevDark => !prevDark)}>Change Theme</button>
+        <span style={themeStyles}> {doubleNumber} </span>
       </div>
-      <h2>{resourceType}</h2>
-      {items.map(item => {
-        return <pre>{JSON.stringify(item)}</pre> 
-      } 
-      )}
+      
     </div>
   );
+
+  function slowFunction (num) {
+      return num * 2;
+    }
+
 }
 
 export default App;
