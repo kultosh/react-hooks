@@ -11,7 +11,9 @@ function App() {
     color: dark ? 'white' : 'black'
   }
 
-  const doubleNumber = slowFunction(number);
+  const doubleNumber = useMemo(() => {
+    return slowFunction(number)
+  }, [number]);
 
   return (
     <div className="App">
